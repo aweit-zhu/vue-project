@@ -15,7 +15,7 @@ const { user } = useUserStore()
     <KeepAlive>
       <component :is="currentComponent" />
     </KeepAlive> -->
-    <div class="m-8">
+    <div>
       {{ user }}
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic voluptatibus, itaque sunt
       reprehenderit quos obcaecati cum, commodi dignissimos accusantium nisi, eos incidunt assumenda
