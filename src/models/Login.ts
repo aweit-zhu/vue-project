@@ -7,4 +7,5 @@ export interface UserInfo {
   userId: string
   username: string
   company: string
+  menuOpen: boolean | undefined
 }

@@ -25,7 +25,12 @@ export const useUserStore = defineStore(
       user.value = null
       router.push('/login')
     }
-    return { user, setUser, logout }
+    function setMenuOpen(open: boolean) {
+      if (user.value) {
+        user.value.menuOpen = open
+      }
+    }
+    return { user, setUser, logout, setMenuOpen }
   },
   {
     persist: true
