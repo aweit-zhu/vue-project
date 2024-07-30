@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useUserStore } from '@/stores/stores'
 import CounterView from '@/views/CounterView.vue'
-import AboutView from '../views/AboutView.vue'
+import { ref } from 'vue'
 const currentComponent = ref(CounterView)
+const { user } = useUserStore()
 </script>
 
 <template>
@@ -15,6 +16,7 @@ const currentComponent = ref(CounterView)
       <component :is="currentComponent" />
     </KeepAlive> -->
     <div class="m-8">
+      {{ user }}
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic voluptatibus, itaque sunt
       reprehenderit quos obcaecati cum, commodi dignissimos accusantium nisi, eos incidunt assumenda
       fugiat ut explicabo. Impedit reiciendis quas molestiae! Lorem, ipsum dolor sit amet

@@ -1,3 +1,5 @@
 export enum ApiEndpoints {
-  YES_NO = '/api'
+  YES_NO = '/api',
+  LOGIN = '/login',
+  GETUSER = '/getUser/'
 }

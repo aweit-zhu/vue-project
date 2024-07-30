@@ -102,7 +102,7 @@ const show = ref(true)
         <input type="number" id="age" v-model="formData.age" />
         <span v-if="errors.age">{{ errors.age }}</span>
       </div>
-      <button type="submit">提交</button>
+      <button type="submit" class=" bg-blue-500 rounded p-2">提交</button>
     </form>
     <div>
       <h2>表單數據:</h2>
