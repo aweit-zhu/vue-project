@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -17,6 +16,15 @@ const props = withDefaults(
     title: 'title'
   }
 )
+
+const emit = defineEmits<{
+  (e: 'click', id: string): void
+}>()
+
+function handleClick() {
+  emit('click', props.id)
+}
+
 const backgroundImageStyle = ref({
   backgroundImage: `url(${props.imgSrc})`,
   width: props.width || 'auto',
@@ -32,16 +40,14 @@ const subTitleStyle = ref({
   fontSize: props.subTitleSize,
   lineHeight: '1.25rem'
 })
-
-const router = useRouter()
 </script>
 <template>
-  <div :style="backgroundImageStyle" class="bg-cover relative">
-    <div class="absolute bottom-0 w-full h-1/2 black-gradient-bottom">
+  <div :style="backgroundImageStyle" class="bg-cover relative rounded-lg">
+    <div class="absolute bottom-0 w-full h-1/2 black-gradient-bottom rounded-lg">
       <button
         class="text-white font-extrabold absolute left-0 bottom-10 ml-4 hover:underline"
         :style="titleStyle"
-        @click="router.push(`/article/${id}`)"
+        @click="handleClick()"
       >
         {{ props.title }}
       </button>
@@ -49,7 +55,7 @@ const router = useRouter()
         v-if="subTitle"
         class="text-sm text-white font-extrabold absolute left-0 bottom-3 ml-4 hover:underline"
         :style="subTitleStyle"
-        @click="router.push(`/article/${id}`)"
+        @click="handleClick"
       >
         {{ props.subTitle }}
       </button>

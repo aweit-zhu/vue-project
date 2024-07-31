@@ -1,12 +1,7 @@
-import {
-  createRouter,
-  createWebHistory,
-  type RouteLocationNormalized,
-  type RouteParams
-} from 'vue-router'
+import { useUserStore } from '@/stores/stores'
+import { createRouter, createWebHistory, type RouteLocationNormalized } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MainLayout from '../views/MainLayout.vue'
-import { useUserStore } from '@/stores/stores'
 
 // 路由設定
 const routes = [
