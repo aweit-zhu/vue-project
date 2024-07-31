@@ -1,8 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type RouteLocationNormalized,
+  type RouteParams
+} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MainLayout from '../views/MainLayout.vue'
 import { useUserStore } from '@/stores/stores'
 
+// 路由設定
 const routes = [
   {
     path: '/',
@@ -27,6 +33,12 @@ const routes = [
         path: 'counter',
         name: 'counter',
         component: () => import('../views/CounterView.vue')
+      },
+      {
+        path: 'article/:id',
+        name: 'article',
+        component: () => import('../views/ArticleView.vue'),
+        props: (route: RouteLocationNormalized) => ({ id: route.params.id })
       }
     ],
     meta: { requiresAuth: true }
@@ -35,7 +47,7 @@ const routes = [
     path: '/login/:id?',
     name: 'login',
     component: () => import('../views/LoginPage.vue'),
-    props: (route: any) => ({ error: route.query.error })
+    props: (route: RouteLocationNormalized) => ({ error: route.query.error })
   }
 ]
 
@@ -44,6 +56,7 @@ const router = createRouter({
   routes: routes
 })
 
+// 路由守衛器
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
 
