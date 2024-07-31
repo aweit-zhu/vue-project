@@ -12,6 +12,8 @@ const linkClass = 'mx-2 my-1 md:m-4 hover:text-blue-700 font-bold relative'
 <template>
   <div class="flex flex-row md:flex-col bg-gray-100">
     <!-- header/side menu -->
+  <div class="flex flex-row md:flex-col bg-gray-100">
+    <!-- header/side menu -->
     <div
       class="bg-yellow-50 rounded flex flex-col md:sticky md:top-0 md:z-50 md:w-full md:flex-row items-center justify-center shadow-lg md:h-12 md:mb-2 md:border-none relative"
       :class="{ 'w-10': !menuOpen, 'w-48': menuOpen }"
@@ -53,6 +55,8 @@ const linkClass = 'mx-2 my-1 md:m-4 hover:text-blue-700 font-bold relative'
         <div v-if="!menuOpen">☰</div>
       </button>
     </div>
+    <!-- main page -->
+    <RouterView class="min-h-screen py-2 flex-1 md:ml-8 overflow-auto md:mt-2" />
     <!-- main page -->
     <RouterView class="min-h-screen py-2 flex-1 md:ml-8 overflow-auto md:mt-2" />
   </div>
