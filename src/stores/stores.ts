@@ -55,3 +55,14 @@ export const useErrorStore = defineStore(
     persist: true
   }
 )
+
+export const useLoadingStore = defineStore('loading', () => {
+  const loading = ref<boolean>(false)
+  function startLoading() {
+    loading.value = true
+  }
+  function stopLoading() {
+    loading.value = false
+  }
+  return { loading, startLoading, stopLoading }
+})

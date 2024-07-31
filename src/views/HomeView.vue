@@ -2,6 +2,7 @@
 import { ApiEndpoints } from '@/api/endpoints'
 import { get } from '@/api/httpService'
 import PictureCard from '@/components/PictureCard.vue'
+import { useLoadingStore } from '@/stores/stores'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 export interface Picture {
@@ -11,19 +12,19 @@ export interface Picture {
   subTitle: string
   article: string
 }
-
+const { startLoading, stopLoading } = useLoadingStore()
 const pictures = ref<Picture[]>([])
 
 onMounted(async () => {
+  startLoading()
   const response = await get<Picture[]>(ApiEndpoints.GETPICTURES)
   pictures.value = response.data
-  console.log(pictures)
+  stopLoading()
 })
 
 const router = useRouter()
 
 function handleClick(id: string) {
-  console.log('Picture clicked with id:', id)
   router.push(`/article/${id}`)
 }
 </script>

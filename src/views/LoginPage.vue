@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ApiEndpoints } from '@/api/endpoints'
 import type { LoginUserInfo, UserInfo } from '@/models/Login'
-import { useUserStore } from '@/stores/stores'
+import { useLoadingStore, useUserStore } from '@/stores/stores'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { get, post } from '../api/httpService'
@@ -12,7 +12,9 @@ const route = useRoute()
 const router = useRouter()
 const { setUser } = useUserStore()
 const loginUserInfo = ref<LoginUserInfo>({ username: '', password: '' })
+const { startLoading, stopLoading } = useLoadingStore()
 async function doLogin() {
+  startLoading()
   const result = await post<any>(ApiEndpoints.LOGIN, loginUserInfo)
   if (result.data.status == 'ok') {
     const userInfo = await get<UserInfo>(ApiEndpoints.GETUSER + result.data.userId)
@@ -20,6 +22,7 @@ async function doLogin() {
     setUser(user)
     router.push('/')
   }
+  stopLoading()
 }
 </script>
 <template>
