@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { useErrorStore } from '@/stores/stores'
+defineProps<{
+  message: string | unknown
+}>()
 
-const errorStore = useErrorStore()
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 </script>
 <template>
-  <div v-if="errorStore.error" class="error-display">
-    <p class="m-2">{{ errorStore.error }}</p>
-    <button @click="errorStore.clearError()" class="absolute top-0 right-0 mx-2 font-bold">
-      X
-    </button>
+  <div v-if="message" class="error-display">
+    <p class="m-2">{{ message }}</p>
+    <button @click="emit('close')" class="absolute top-0 right-0 mx-2 font-bold">X</button>
   </div>
 </template>
 <style scoped>
