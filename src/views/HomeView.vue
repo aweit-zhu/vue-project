@@ -1,25 +1,21 @@
 <script setup lang="ts">
-import { ApiEndpoints } from '@/api/endpoints'
-import { get } from '@/api/httpService'
 import PictureCard from '@/components/PictureCard.vue'
-import { useLoadingStore } from '@/stores/stores'
+import type { Picture } from '@/services/Common/models'
+import type PictureService from 'src/services/Common/PictureService'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-export interface Picture {
-  id: string
-  imgSrc: string
-  title: string
-  subTitle: string
-  article: string
-}
-const { startLoading, stopLoading } = useLoadingStore()
+import { BuildMode, EnvImport, ImportInfo } from '@/utils/TestExtensions'
+
 const pictures = ref<Picture[]>([])
 
+const pictureService = EnvImport<PictureService>([
+  new ImportInfo(BuildMode.DEV, () => import('@/services/Common/PictureService'))
+])
+
 onMounted(async () => {
-  startLoading()
-  const response = await get<Picture[]>(ApiEndpoints.GETPICTURES)
+  const service = await pictureService
+  const response = await service.getPictures()
   pictures.value = response.data
-  stopLoading()
 })
 
 const router = useRouter()

@@ -4,14 +4,25 @@ import type { Picture } from './HomeView.vue'
 import { get } from '@/api/httpService'
 import { ApiEndpoints } from '@/api/endpoints'
 import PictureCard from '@/components/PictureCard.vue'
+import type PictureService from '@/services/Common/PictureService'
+import { EnvImport, ImportInfo, BuildMode } from '@/utils/TestExtensions'
+import { QueryPicVo } from '@/services/Common/models'
 const props = defineProps<{
   id: string
 }>()
 
 const picture = ref<Picture | null>(null)
 
+const pictureService = EnvImport<PictureService>([
+  new ImportInfo(BuildMode.DEV, () => import('@/services/Common/PictureService'))
+])
+
 onMounted(async () => {
-  const response = await get<Picture>(`${ApiEndpoints.GETPICTURE}/${props.id}`)
+  const service = await pictureService
+  const query: QueryPicVo = {
+    id: props.id
+  }
+  const response = await service.getPictureInfoById(query)
   picture.value = response.data
 })
 </script>

@@ -1,6 +1,8 @@
 // httpService.js
+import { useLoadingStore } from '@/stores/stores'
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
 
+const { startLoading, stopLoading } = useLoadingStore()
 
 // 创建一个 axios 实例
 const apiClient = axios.create({
@@ -19,9 +21,11 @@ apiClient.interceptors.request.use(
     // if (token) {
     //   config.headers.Authorization = `Bearer ${token}`
     // }
+    startLoading()
     return config
   },
   (error: any) => {
+    stopLoading()
     return Promise.reject(error)
   }
 )
@@ -29,10 +33,12 @@ apiClient.interceptors.request.use(
 // 响应拦截器
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
+    stopLoading()
     return response
   },
   (error: any) => {
     // 处理响应错误
+    stopLoading()
     return Promise.reject(error)
   }
 )
