@@ -36,7 +36,7 @@ export const EnvImport = async <T>(imports: Array<IImportInfo>) => {
   }
   // 檢核結果
   if (target === undefined) {
-    throw Error('不存在 ' + process.env.BUILD_MODE + ' 對應的 Import')
+    throw Error('不存在 ' + import.meta.env.VITE_BUILD_MODE + ' 對應的 Import')
   }
   const imp = await target.imp()
   return new (imp as any).default() as T

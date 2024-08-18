@@ -30,6 +30,7 @@ const linkClass = 'mx-2 my-1 md:m-4 hover:text-blue-700 font-bold relative'
         <RouterLink to="/about" :class="linkClass">About</RouterLink>
         <RouterLink to="/hello" :class="linkClass">Hello</RouterLink>
         <RouterLink to="/counter" :class="linkClass">Counter</RouterLink>
+        <RouterLink to="/demo/query" :class="linkClass">QueryDemo</RouterLink>
         <a href="/login" v-if="!isLogIn" :class="linkClass">Login</a>
       </nav>
       <div :class="{ hidden: !menuOpen, 'md:block': true }" class="font-bold m-1 text-red-500">
@@ -54,6 +55,6 @@ const linkClass = 'mx-2 my-1 md:m-4 hover:text-blue-700 font-bold relative'
       </button>
     </div>
     <!-- main page -->
-    <RouterView class="min-h-screen py-2 flex-1 md:ml-8 overflow-auto md:mt-2" />
+    <RouterView class="min-h-screen py-2 flex-1 md:ml-8 md:mr-8 overflow-auto md:mt-2" />
   </div>
 </template>
