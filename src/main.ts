@@ -6,6 +6,7 @@ import piniaPersist from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import router from './router'
 import { useErrorStore } from './stores/stores'
+import StdButton from '@/components/Basic/StdButton.vue'
 // Vuetify
 // import 'vuetify/styles'
 // import { createVuetify } from 'vuetify'
@@ -34,6 +35,19 @@ app.use(router)
 app.config.errorHandler = (err, instance, info) => {
   const errorStore = useErrorStore() // 使用 Pinia store
   errorStore.setError(err)
+}
+
+const modules = import.meta.glob('@/components/Basic/**/*.vue')
+
+for (const path in modules) {
+  modules[path]().then((module: any) => {
+    const componentName = path
+      .split('/')
+      .pop()!
+      .replace(/\.\w+$/, '')
+
+    app.component(componentName, module.default)
+  })
 }
 
 app.mount('#app')
