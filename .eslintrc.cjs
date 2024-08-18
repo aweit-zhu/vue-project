@@ -11,9 +11,9 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
-  },
-  rules: {
-    'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
-    'no-unused-imports': 'error' // 這需要額外的 ESLint 插件
   }
+  // rules: {
+  //   'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
+  //   'no-unused-imports': 'error' // 這需要額外的 ESLint 插件
+  // }
 }

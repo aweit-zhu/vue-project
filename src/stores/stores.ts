@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { UserInfo } from '@/models/Login'
 import { useRouter } from 'vue-router'
+import type { Validator } from '@/models/Validator'
 
 export const useCounterStore = defineStore('counter', () => {
   const count = ref(0)
@@ -66,3 +67,49 @@ export const useLoadingStore = defineStore('loading', () => {
   }
   return { loading, startLoading, stopLoading }
 })
+
+export const useValidators = defineStore(
+  'validators',
+  () => {
+    const validators = ref<Validator[]>([])
+
+    function addValidator(validator: Validator) {
+      if (validators.value.findIndex((v) => arraysEqual(v.keys, validator.keys)) < 0) {
+        validators.value.push(validator)
+      }
+    }
+
+    function removeValidator(validator: Validator) {
+      const index = validators.value.findIndex((v) => arraysEqual(v.keys, validator.keys))
+      if (index >= 0) {
+        validators.value.splice(index, 1)
+      }
+    }
+
+    function validate(validator: Validator, value: string) {
+      const { fn } = validator
+      validator.isValid = fn(value)
+    }
+
+    function isValid(key: string): boolean {
+      return validators.value.findIndex((v) => v.keys.includes(key) && v.isValid == false) >= 0
+    }
+
+    function arraysEqual(arr1: string[], arr2: string[]): boolean {
+      if (arr1.length !== arr2.length) return false
+      for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false
+      }
+      return true
+    }
+
+    function printValidators() {
+      validators.value.forEach((v) => console.log(v))
+    }
+
+    return { validators, addValidator, removeValidator, isValid, validate, printValidators }
+  },
+  {
+    persist: true
+  }
+)
