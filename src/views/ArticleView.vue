@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { Picture } from './HomeView.vue'
 import { get } from '@/api/httpService'
 import { ApiEndpoints } from '@/api/endpoints'
 import PictureCard from '@/components/PictureCard.vue'
 import type PictureService from '@/services/Common/PictureService'
 import { EnvImport, ImportInfo, BuildMode } from '@/utils/TestExtensions'
-import { QueryPicVo } from '@/services/Common/models'
+import { QueryPicVo, type Picture } from '@/services/Common/models'
 const props = defineProps<{
   id: string
 }>()

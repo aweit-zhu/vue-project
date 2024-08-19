@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ApiEndpoints } from '@/api/endpoints'
 import type { LoginUserInfo, UserInfo } from '@/models/Login'
-import { useLoadingStore, useUserStore } from '@/stores/stores'
+import { useLoadingStore } from '@/stores/loadingStore'
+import { useUserStore } from '@/stores/userStore'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { get, post } from '../api/httpService'

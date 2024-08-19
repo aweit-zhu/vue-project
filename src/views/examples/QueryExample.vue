@@ -3,6 +3,7 @@
     <template v-slot:QueryArea>
       <div>
         <StdTextField
+          fieldName="姓名"
           v-model="queryForm.textValue"
           @blur="(val) => console.log(val)"
           class="my-2 w-1/5"
@@ -26,7 +27,7 @@
 </template>
 <script setup lang="ts">
 import QueryLayout from '@/layouts/QueryLayout.vue'
-import { useValidators } from '@/stores/validators'
+import { useValidators } from '@/stores/validatorsStore'
 import { ref } from 'vue'
 
 const queryForm = ref<{
@@ -43,6 +44,6 @@ function submit() {
     alert(errorMessage)
     return true
   }
-  console.log('成功提交')
+  alert('成功提交')
 }
 </script>
