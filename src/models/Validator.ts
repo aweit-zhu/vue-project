@@ -1,6 +1,6 @@
 export interface Validator {
-  keys: string[]
+  keys?: string[]
   message: string
-  fn: (val: string) => boolean
+  fn: () => boolean
   isValid?: boolean
 }

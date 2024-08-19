@@ -27,6 +27,7 @@ const { printValidators, addValidator, removeValidator, validate } = useValidato
 const props = defineProps<{
   modelValue: string
   validators: Validator[]
+  validatorKeys: string[]
 }>()
 
 const emit = defineEmits<{
@@ -42,7 +43,7 @@ const isValid = ref<boolean>(true)
 function doValidate() {
   isValid.value = true
   for (const validator of props.validators) {
-    validate(validator, internalValue.value)
+    validate(validator)
     if (!validator.isValid) {
       isValid.value = false
       errorMessage.value = validator.message
@@ -76,6 +77,7 @@ watch(internalValue, (newValue) => {
 
 onMounted(() => {
   props.validators.forEach((validator: Validator) => {
+    validator.keys = props.validatorKeys
     addValidator(validator)
   })
   printValidators()

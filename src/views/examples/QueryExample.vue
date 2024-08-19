@@ -6,18 +6,15 @@
           v-model="queryForm.textValue"
           @blur="(val) => console.log(val)"
           class="my-2"
+          :validatorKeys="['queryExample', 'name']"
           :validators="[
             {
-              keys: ['queryExample', 'name', 'required'],
               message: '第一個字元必須為a',
-              fn: (val: string) => val.startsWith('a'),
-              isValid: true
+              fn: () => queryForm.textValue.startsWith('a')
             },
             {
-              keys: ['queryExample', 'name', 'startwith a'],
               message: '字元必須大於等於3',
-              fn: (val: string) => val.length >= 3,
-              isValid: true
+              fn: () => queryForm.textValue.length >= 3
             }
           ]"
         ></StdTextField>

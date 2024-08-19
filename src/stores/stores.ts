@@ -86,9 +86,9 @@ export const useValidators = defineStore(
       }
     }
 
-    function validate(validator: Validator, value: string) {
+    function validate(validator: Validator) {
       const { fn } = validator
-      validator.isValid = fn(value)
+      validator.isValid = fn()
     }
 
     function isValid(key: string): boolean {
