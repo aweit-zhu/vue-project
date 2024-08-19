@@ -21,7 +21,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useValidators, type Validator } from '@/stores/validators'
+import { useValidators, type Validator } from '@/stores/validatorsStore'
 import { defineProps, onMounted, onUnmounted, ref, watch } from 'vue'
 
 const props = defineProps<{
