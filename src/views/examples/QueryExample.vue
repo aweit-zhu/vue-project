@@ -26,7 +26,7 @@
 </template>
 <script setup lang="ts">
 import QueryLayout from '@/layouts/QueryLayout.vue'
-import { useValidators } from '@/stores/stores'
+import { useValidators } from '@/stores/validators'
 import { ref } from 'vue'
 
 const queryForm = ref<{
@@ -35,11 +35,12 @@ const queryForm = ref<{
   textValue: ''
 })
 
-const { isValid } = useValidators()
+const { getFirstErrorMessage } = useValidators()
 
 function submit() {
-  if (isValid('queryExample')) {
-    console.log('有錯誤')
+  const errorMessage = getFirstErrorMessage('queryExample')
+  if (errorMessage !== '') {
+    alert(errorMessage)
     return true
   }
   console.log('成功提交')

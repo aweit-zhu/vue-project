@@ -18,16 +18,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Validator } from '@/models/Validator'
-import { useValidators } from '@/stores/stores'
+import { useValidators, type Validator } from '@/stores/validators'
 import { defineProps, onMounted, onUnmounted, ref, watch } from 'vue'
-
-const { printValidators, addValidator, removeValidator, validate } = useValidators()
 
 const props = defineProps<{
   modelValue: string
-  validators: Validator[]
   validatorKeys: string[]
+  validators: Validator[]
 }>()
 
 const emit = defineEmits<{
@@ -40,17 +37,19 @@ const input = ref<HTMLInputElement | null>(null)
 const internalValue = ref<string>(props.modelValue)
 const isValid = ref<boolean>(true)
 
-function doValidate() {
-  isValid.value = true
-  for (const validator of props.validators) {
-    validate(validator)
-    if (!validator.isValid) {
-      isValid.value = false
-      errorMessage.value = validator.message
-      return
-    }
-  }
+const { addValidator, removeValidator, getFirstErrorMessageByKeys } = useValidators()
+
+function validate() {
+  errorMessage.value = getFirstErrorMessageByKeys(props.validatorKeys)
 }
+
+watch(errorMessage, (newValue) => {
+  if (newValue !== '') {
+    isValid.value = false
+  } else {
+    isValid.value = true
+  }
+})
 
 function onFocus() {
   if (input.value) {
@@ -60,7 +59,7 @@ function onFocus() {
 
 function onBlur() {
   emit('blur', internalValue.value)
-  doValidate()
+  validate()
 }
 
 watch(
@@ -72,21 +71,16 @@ watch(
 
 watch(internalValue, (newValue) => {
   emit('update:modelValue', newValue)
-  doValidate()
+  validate()
 })
 
 onMounted(() => {
   props.validators.forEach((validator: Validator) => {
-    validator.keys = props.validatorKeys
-    addValidator(validator)
+    addValidator(props.validatorKeys, validator)
   })
-  printValidators()
 })
 
 onUnmounted(() => {
-  props.validators.forEach((validator: Validator) => {
-    removeValidator(validator)
-  })
-  printValidators()
+  removeValidator(props.validatorKeys)
 })
 </script>
