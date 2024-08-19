@@ -5,7 +5,7 @@
         <StdTextField
           v-model="queryForm.textValue"
           @blur="(val) => console.log(val)"
-          class="my-2"
+          class="my-2 w-1/5"
           :validatorKeys="['queryExample', 'name']"
           :validators="[
             {

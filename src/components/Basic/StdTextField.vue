@@ -11,7 +11,7 @@
     />
     <div
       v-if="!isValid"
-      class="absolute top-full left-0 mt-1 p-2 bg-red-500 text-white text-sm rounded"
+      class="absolute bottom-full right-0 mt-1 p-2 bg-red-500 text-white text-sm rounded w-full"
     >
       {{ errorMessage }}
     </div>
