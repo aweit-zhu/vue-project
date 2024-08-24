@@ -27,8 +27,8 @@ import { defineProps, onMounted, onUnmounted, ref, watch } from 'vue'
 const props = defineProps<{
   fieldName: string
   modelValue: string
-  validatorKeys: string[]
-  validators: Validator[]
+  validatorKeys?: string[]
+  validators?: Validator[]
 }>()
 
 const emit = defineEmits<{
@@ -44,8 +44,12 @@ const isValid = ref<boolean>(true)
 const { addValidator, removeValidator, getFirstErrorMessageByKeys } = useValidators()
 
 function validate() {
-  errorMessage.value = getFirstErrorMessageByKeys(props.validatorKeys)
+  if (props.validatorKeys) errorMessage.value = getFirstErrorMessageByKeys(props.validatorKeys)
 }
+
+defineExpose({
+  validate
+})
 
 watch(errorMessage, (newValue) => {
   if (newValue !== '') {
@@ -79,12 +83,12 @@ watch(internalValue, (newValue) => {
 })
 
 onMounted(() => {
-  props.validators.forEach((validator: Validator) => {
-    addValidator(props.validatorKeys, validator)
+  props.validators?.forEach((validator: Validator) => {
+    if (props.validatorKeys) addValidator(props.validatorKeys, validator)
   })
 })
 
 onUnmounted(() => {
-  removeValidator(props.validatorKeys)
+  if (props.validatorKeys) removeValidator(props.validatorKeys)
 })
 </script>

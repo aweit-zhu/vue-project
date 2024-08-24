@@ -60,6 +60,7 @@ export const useValidators = defineStore('validators', () => {
   function getFirstErrorMessage(key: string): string {
     for (const group of validatorGroups.value) {
       if (group.keys.includes(key)) {
+        group.validators.forEach((v) => (v.isValid = v.fn()))
         const invalidValidator = group.validators.find((v) => v.isValid === false)
         if (invalidValidator) {
           return invalidValidator.message
