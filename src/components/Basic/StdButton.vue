@@ -1,9 +1,7 @@
 <script setup lang="ts">
-interface Props {
+defineProps<{
   btnName: string
-}
-const props = withDefaults(defineProps<Props>(), {})
-
+}>()
 const emit = defineEmits<{
   (e: 'click'): void
 }>()
@@ -13,6 +11,6 @@ const emit = defineEmits<{
     @click="emit('click')"
     class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
   >
-    {{ props.btnName }}
+    {{ btnName }}
   </button>
 </template>

@@ -1,5 +1,5 @@
 // httpService.js
-import { useLoadingStore } from '@/stores/stores'
+import { useLoadingStore } from '@/stores/loadingStore'
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
 
 const { startLoading, stopLoading } = useLoadingStore()

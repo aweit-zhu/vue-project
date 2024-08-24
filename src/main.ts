@@ -8,21 +8,7 @@ import router from './router'
 import { useErrorStore } from './stores/errorStore'
 import { RegisterGlobalComponent } from './RefisterGlobalComponent'
 
-// Vuetify
-// import 'vuetify/styles'
-// import { createVuetify } from 'vuetify'
-// import * as components from 'vuetify/components'
-// import * as directives from 'vuetify/directives'
-
-// const vuetify = createVuetify({
-//   components,
-//   directives
-// })
-
 const app = createApp(App)
-
-// vuetify
-//app.use(vuetify)
 
 // pinia
 const pinia = createPinia()
